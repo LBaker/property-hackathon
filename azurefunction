@@ -23,80 +23,40 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
                             "values",
                             new List<Dictionary<string, string>>(){new Dictionary<string, string>(){
                                             {
-                                                "LA_NAME", "City of Bristol (B)"
+                                                "PRODUCT_NAME", "Envirosearch Residential"
                                             },
                                             {
-                                                "LA_CREATED_ON_MON", "3"
+                                                "HMLR_PROPERTY_CODE", "T"
                                             },
                                             {
-                                                "PostCode2", sector
+                                                "HMLR_FREE_LEASE_CODE", "F"
                                             },
                                             {
-                                                "Property_code", "T"
+                                                "HMLR_NEW_BUILD", "N"
                                             },
                                             {
-                                                "FREE_LEASE_CODE", "L"
+                                                "LA_NAME", "Breckland District"
                                             },
                                             {
-                                                "NEW_BUILD", "N"
+                                                "LAST_ASKING_PRICE", "100000"
                                             },
                                             {
-                                                "HMLR_SALE_VALUE", price
+                                                "Listed_Month", "04"
                                             },
                                             {
-                                                "PRODUCT_NAME", "Homecheck Environmental Report"
-                                            },
-                                }
-                            }
-                        },
-                        {
-                            "averages",
-                            new List<Dictionary<string, string>>(){new Dictionary<string, string>(){
-                                            {
-                                                "Avg_PostCode2", sector
-                                            },
-                                            {
-                                                "Avg_Property_code", "S"
+                                                "Sector", "IP"
                                             },
                                 }
                             }
                         },
                     },
                     GlobalParameters = new Dictionary<string, string>() {
-                            {
-                                "FREE_LEASE_CODE", "'F'"
-                            },
-                            {
-                                "NEW_BUILD", "'N'"
-                            },
-                            {
-                                "PRODUCT_NAME", "'Envirosearch Residential'"
-                            },
-                            {
-                                "HMLR_SALE_VALUE", "120000"
-                            },
-                            {
-                                "LA_CREATED_ON_MON", "3"
-                            },
-                            {
-                                "Property_code", "'T'"
-                            },
-                            {
-                                "LA_NAME", "'Ocean'"
-                            },
-                            {
-                                "Avg_Property_code", "'T'"
-                            },
-                            {
-                                "Avg_Postcode2", ""
-                            },
                     }
                 };
-                // Replace this with the API key for the web service
-                const string apiKey = "abcApiKey"; 
+
+                const string apiKey = "abc123"; // Replace this with the API key for the web service
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( "Bearer", apiKey);
-                //replace this with the uri to you azure machine learning webservice
-                client.BaseAddress = new Uri("https://ussouthcentral.services.azureml.net/workspaces/c03f4f00e4ce4a8e820f71d092eab0e5/services/5ced34b08342408184511f4f10786332/execute?api-version=2.0&format=swagger");
+                client.BaseAddress = new Uri("https://ussouthcentral.services.azureml.net/workspaces/c03f4f00e4ce4a8e820f71d092eab0e5/services/87ec4c43d5f7460690a3a8c8a5f37c66/execute?api-version=2.0&format=swagger");
 
                 HttpResponseMessage response = await client.PostAsJsonAsync("", scoreRequest);
 
@@ -106,6 +66,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
                     log.Info("Result: {0}", result);
                     Console.WriteLine("Result: {0}", result);
                     return req.CreateResponse(HttpStatusCode.OK, result);
+    
                 }
                 else
                 {
@@ -115,6 +76,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
                     string responseContent = await response.Content.ReadAsStringAsync();
                     log.Info("responceCOntent: {0}", responseContent);
                     return req.CreateResponse(HttpStatusCode.OK, responseContent);
+    
                 }
             }
 }

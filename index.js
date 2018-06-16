@@ -7,7 +7,7 @@ let price = "120000";
 //replace with the url to your azure function
 const apiUrl = "https://fnsalesduration.azurewebsites.net/api/HttpTriggerCSharp1?code=pvAKe489uyZs9ORPbKJGIeUyI/47Jp/YMwbzkzbYfaMDGwiXjbebPg==";
 exports.salesdurationagentWebhook = (req, res) => {
-  // Get the city and date from the request
+  // Get the price and sector from the request
   price = req.body.queryResult.parameters['price']; // price is a required param
   sector = req.body.queryResult.parameters['sector']; // sector is a required param
   
